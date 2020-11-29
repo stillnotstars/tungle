@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{Title}</title>
+
+<link rel="shortcut icon" href="{Favicon}">
+<link rel="alternate" type="application/rss+xml" href="{RSS}">
+
+{block:Description}
+    <meta name="description" content="{MetaDescription}" />
+{/block:Description}
+
+<meta name="if:Show Avatar" content="" />
+<meta name="image:Background Image" content="">
+<meta name="color:Background" content="#a084b4" />
+<meta name="color:Text" content="#000" />
+<meta name="color:Post Background" content="#fff" />
+<meta name="color:Links" content="#4f156a" />
+<meta name="color:Bubbles" content="#e6c7f1" />
+<meta name="color:Bubble Text" content="#000">
+<meta name="color:Bubble Links" content="#3b0a51">
+<meta name="color:Scrollbar Background" content="#fff" />
+<meta name="color:Scrollbar" content="#89ccd1" />
+<meta name="if:Show Search" content="1">
+<meta name="if:Show Archive" content="" />
+<meta name="select:Font" content="Helvetica" />
+<meta name="select:Font" content="Georgia" />
+<meta name="select:Font" content="Verdana" />
+<meta name="if:Show Blacklist" content="1" />
+<meta name="text:Blacklist Terms" content="write the tags you use for tagging stuff seperated by commas, punctuation unnecessary">
+<meta name="if:Show Alt Text" content="1" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+
+body {
+    font-family: {select:font};
+    background: {color:background} url("{image:background image}");
+}
+
+.post {
+    width: 40%;
+    min-width: 400px;
+    margin: 0 40% 150px;
+    position: relative;
+    z-index: 20;
+    padding: 10px;
+}
+
+.box {
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: {color:post background};
+}
+
+#search {
+    font-size: 20px;
+    padding: 5px;
+    font-family: Verdana;
+    width: 70%;
+}
+
+#search:focus {
+    border: 2px dashed {color:links};
+}
+
+a {
+    color: {color:links};
+}
+
+h1 {
+    margin-top: 0;
+}
+
+blockquote {
+    border-left: 1px solid black;
+    margin-left: 5px;
+    margin-right: 0;
+    padding-left: 15px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    min-width: 200px;
+    font-size: 22px;
+    border: 0;
+    background-color: white;
+    border-right: 1px solid black;
+}
+
+@media only screen and (max-width: 800px) {
+    header {
+        position: relative;
+        bottom: auto;
+        width: 80%;
+        min-width: 0px;
+        border-right: 0px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin: 30px auto;
+    }
+    
+    .post {
+        margin: auto;
+        margin-bottom: 150px;
+    }
+}
+
+#profileicon {
+    width: 50%;
+    margin: 0 auto 8px;
+}
+
+#profileicon img {
+    border-radius: 50%;
+}
+
+#title {
+    margin: 0;
+    font-size: 30px;
+    line-height: 120%;
+    margin-bottom: 10px;
+}
+
+a.title {
+    text-decoration: none;
+}
+
+nav {
+    clear: both;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 22px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+main {
+    margin: 100px auto 70px;
+    font-size: 20px;
+}
+
+#notbl {
+    {block:ifshowblacklist}
+        height: calc(60% - 60px);
+    {/block:ifshowblacklist}
+    padding: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+}
+
+{block:ifshowblacklist}
+#lol {
+    border-bottom: 3px solid #eee;
+    margin: 10px;
+}
+
+#blacklist {
+    overflow-y: auto;
+    background: #fff;
+    font-size: 20px;
+    padding: 50px;
+    padding-top: 10px;
+    height: calc(40% - 60px);
+}
+
+#blacklist h2 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#blacklistbutton h2:focus {
+    outline: none;
+    border: 5px dashed {color:links};
+    background-color: {color:post background};
+    color: {color:text};
+    text-decoration: none;
+}
+
+{/block:ifshowblacklist}
+
+label p {
+    margin: 0;
+}
+
+.explainbl {
+    display: none;
+}
+
+.pagination-icon {
+    color: #888;
+}
+
+a .pagination-icon {
+    color: {color:links};
+}
+
+.pagination a {
+    text-decoration: none;
+}
+
+.tags {
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: {color:bubbles};
+    color: {color:bubble text};
+    border-radius: 5px;
+}
+
+.tags a {
+    color: {color:bubble links};
+}
+
+.sr-only {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+}
+
+.sr-only.firstnav {
+    top: 50px;
+    left: 40%;
+}
+
+.focusable:focus {
+    clip: auto;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    font-size: 22px;
+    z-index: 10000000;
+}
+
+:focus {
+    outline: dashed {color:links};
+    background-color: {color:post background};
+    color: {color:text};
+    text-decoration: none;
+}
+
+.question {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: {color:bubbles};
+    color: {color:bubble text};
+}
+
+.questions a {
+    color: {color:bubble links};
+}
+
+.odd {
+    background-color: {color:bubbles};
+    color: {color:bubble text};
+    border-radius: 5px;
+}
+
+.odd a {
+    color: {color:bubble links};
+}
+
+#navdescription {
+    font-size: 21px;
+    border-bottom: 3px solid #888;
+}
+
+#notes {
+    background-color: {color:post background};
+    padding: 1px 10px 10px 10px;
+    width: 40%;
+    min-width: 400px;
+    margin: 100px 40% 0;
+    position: relative;
+    z-index: 20;
+}
+
+#notes ol {
+    list-style: none;
+}
+
+#blacklistbutton {
+    font-size: 20px;
+    width: 150px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 5px solid #eee;
+    border-radius: 0;
+    font-family: {select:font};
+}
+
+.avatar:not(.post) {
+    width: 24px;
+    height: 24px;
+    margin-right: 7px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: {color:scrollbar background};
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: {color:scrollbar};
+    border-radius: 3px;
+}
+
+hr {
+    border: 2px solid #eee;
+}
+</style>
+</head>
+<body>
+<header>
+
+<div id="notbl">
+    {block:ifshowavatar}<div id="profileicon"><a href="/"><img src="{PortraitURL-96}" alt="click to go to index" /></a></div>{/block:ifshowavatar}
+    
+    <div style="border-bottom: 0px; padding: 5px 10px 1px;">
+        {block:ifnotshowavatar}<a class="title" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
+    </div>
+    
+    <div style="font-size: 20px;">{Description}</div>
+    
+    <nav>
+        {block:HasPages}{block:Pages}<div><i class="fa fa-star-o"></i> <a href="{URL}">{Label}</a></div>{/block:Pages}{/block:HasPages}
+        {block:AskEnabled}<div><i class="fa fa-star-o"></i> <a href="/ask">{AskLabel}</a></div>{/block:AskEnabled}
+        {block:SubmissionsEnabled}<div><i class="fa fa-star-o"></i> <a href="/submit">{SubmitLabel}</a></div>{/block:SubmissionsEnabled}
+        {block:ifshowarchive}<div><i class="fa fa-star-o"></i> <a href="/archive">Archive</a></div>{/block:ifshowarchive}
+    </nav>
+    
+    {block:ifshowsearch}
+    <form action="/search" style="margin-top: 10px;" method="get">
+        <i class="fa fa-search" aria-hidden="true"></i> <input type="text" id="search" name="q" value="{SearchQuery}" placeholder="Search..."/>
+    </form>
+    {/block:ifshowsearch}
+    
+    <div style="font-size: 18px; margin-top: 15px;">
+        <a href="https://weirder.earth/@daffodilian">Theme Credit</a>
+        <div id="credit" style="display: none;">it's me. i made it</div>
+    </div>
+
+</div>
+
+{block:ifshowblacklist}
+<div id="lol"></div>
+
+<div id="blacklist">
+    <h2>Blacklist</h2>
+    <a class="sr-only focusable" style="padding: 10px;" href="#main">skip blacklist</a>
+    <div id="blterms">
+    </div>
+    <br>
+    <button id="blacklistbutton" class="box">blacklist</button>
+</div>
+{/block:ifshowblacklist}
+
+</header>
+
+
+<main id="main">
+
+{block:SearchPage}
+    {block:nosearchresults}
+        <div class="post box">
+            <h3>No Posts Found</h3>
+        </div>
+    {/block:nosearchresults}
+{/block:SearchPage}
+
+{block:Posts}
+    <div class="post box {TagsAsClasses}">
+        <div class="explainbl">
+            <p>This post is blacklisted because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
+            {block:HasTags}<p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
+            <p class="tags">{block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
+        </div>
+
+        {block:Text}<div class="postbody">
+            <h2 class="sr-only">Text post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+            <div class="postcontent">{block:Reblogs}<a class="tumblr_blog" href="{Permalink}">{Username}</a>{Body}
+            <hr>{/block:Reblogs}
+            {block:NotReblog}{Body}{/block:NotReblog}
+        {/block:Text}
+        
+        {block:Photo}<div class="postbody">
+            <h2 class="sr-only">Photo post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            {LinkOpenTag}<img src="{PhotoUrl-400}" alt>{LinkCloseTag}
+            <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
+        {/block:Photo}
+        
+        {block:Photoset}<div class="postbody">
+            <h2 class="sr-only">Photoset: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            {Photoset}
+            <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
+        {/block:Photoset}
+        
+        {block:Quote}<div class="postbody">
+            <h2 class="sr-only">Quote: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            <h2>"{Quote}"</h2>
+            {block:Source}<div class="postcontent">{Source}{/block:Source}
+        {/block:Quote}
+        
+        {block:Link}<div class="postbody">
+            <h2 class="sr-only">Link post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            <h2><a href="{URL}" {Target}>{Name}</a> <i class="fa fa-external-link"></i></h2>
+            <div>
+            {block:Description}<div class="postcontent">{Description}</div>{/block:Description}
+        {/block:Link}
+        
+        {block:Chat}<div class="postbody">
+            <h2 class="sr-only">Chat post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+            <div class="postcontent">
+                {block:Lines}
+                    <div class="{Alt}">{block:Label}<b>{Label}</b>{/block:Label} {Line}</div>
+                {/block:Lines}
+        
+        {/block:Chat}
+        
+        {block:Video}<div class="postbody">
+            <h2 class="sr-only">Video post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            {Video-400}
+            {block:Caption}<div class="postcontent">{Caption}{/block:Caption}
+        {/block:Video}
+        
+        {block:Audio}<div class="postbody">
+            <h2 class="sr-only">Audio post: </h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            <div style="height: 85px; overflow: hidden;">{AudioEmbed}</div>
+            {block:Caption}<div class="postcontent">{Caption}{/block:Caption}
+        {/block:Audio}
+        
+        {block:Answer}<div class="postbody">
+            <h2 class="sr-only">Ask post:</h2>
+            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+            <div class="question"><em>{Asker} asked:</em><br>{Question}</div>
+            <div class="postcontent">
+            {block:Answerer}
+                <div>{Answerer}: </div>
+                <div>{Answer}</div>
+            {/block:Answerer}
+        
+                {Replies}
+        {/block:Answer}
+        
+        {block:IndexPage}{block:More}<a href="{Permalink}">Read more ></a>{/block:More}{/block:IndexPage}</div>
+
+        <div class="postinfo">
+            <div style="width: 80%; float: left;">
+                <div>{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
+                {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
+            </div>
+            <div style="float: right;"><div style="float: left; margin-right: 10px;"><span class="sr-only">like button: </span>{LikeButton}</div><div style="float: left;"><span class="sr-only">reblog button: </span>{ReblogButton}</div></div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    </div>
+
+{/block:Posts}
+
+{block:PostNotes}
+    <div id="notes" class="box">
+        {PostNotes}
+    </div>
+{/block:PostNotes}
+
+{block:IndexPage}
+    <div class="pagination" style="width: 70px; margin: auto;">
+        {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">{/block:PreviousPage}{/block:Pagination}<span class="pagination-icon">←</span>&ensp;{block:Pagination}{block:PreviousPage}</a>{/block:PreviousPage}{block:NextPage}<a href="{NextPage}">{/block:NextPage}{/block:Pagination}<span class="pagination-icon">→</span>{block:Pagination}{block:NextPage}</a>{/block:NextPage}{/block:Pagination}
+    </div>
+{/block:IndexPage}
+
+</main>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+{block:ifshowblacklist}
+    function declass(tag){
+        return tag.replace(/\_/g, ' ').replace(/\./g, '');
+    };
+    
+    function reclass(tag){
+        return tag.replace(/\ /g, '_');
+    };
+    
+    function block(texttoblock) {
+        $(texttoblock + " .inserttag").append(" #" + declass(texttoblock));
+        $(texttoblock + " .postbody").hide();
+        $(texttoblock + " .tags").hide();
+        $(texttoblock + " .explainbl").show();
+    };
+{/block:ifshowblacklist}
+    
+    $(document).ready(function() {
+        {block:ifshowblacklist}
+        var blocktags = "{text:blacklist terms}".split(', ');
+        for (var i = 1; i <= blocktags.length; i++) {
+            $("#blterms").append('<label><p><input type="checkbox" id="bl' + i + '"> <span id="labelbl' + i + '">' + blocktags[i - 1] + '</span></p></label>');
+        }
+
+        $("#blacklistbutton").click(function() {
+            $('.postbody').show();
+            $('.postinfo').show();
+            $('.inserttag').html('');
+            $('.tags').show();
+            $('.explainbl').hide();
+            var x = 0;
+            for (var i = 1; i <= blocktags.length; i++) {
+                var checked = $("#bl" + i).is(':checked');
+                if (checked) {
+                    blocktags[x] = reclass($("#labelbl" + i).html());
+                    x++;
+                }
+            }
+            
+            //1 = true, 0 = false...
+            for (var i = 0; i < x; i++) {
+                block("." + blocktags[i]);
+            }
+        });
+        
+        $(".showtags").click(function(e) {
+            e.preventDefault();
+            $(this).parent().next().toggle();
+        });
+        {/block:ifshowblacklist}
+        
+        {block:ifshowalttext}
+        $("img").each(function() {
+            var alt = $(this).attr("alt");
+            if (alt != "") {
+                $(this).attr("title", alt);
+            }
+        });
+        {/block:ifshowalttext}
+
+    });
+</script>
+</body>
