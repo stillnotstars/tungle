@@ -11,13 +11,12 @@ hi! this is a tumblr theme i made. graphic design is not my passion, but it does
 
 you can go to [laufeyj-arson dot tumblr dot com](https://laufeyj-arson.tumblr.com) for a demo.
 
-i don't use tumblr anymore, and also i wrote most of this code years ago when i didn't actually understand how javascript works, so things might be broken. if something comes up, [open an issue in this repo](./issues/new) or ping me on mastodon [@daffodilian@weirder.earth](https://weirder.earth/@daffodilian).
+i don't use tumblr anymore, and also i wrote most of this code years ago when i didn't actually understand how javascript works, so things might be broken. if something comes up, [open an issue in this repo](https://github.com/stillnotstars/tungle/issues/new) or ping me on mastodon [@daffodilian@weirder.earth](https://weirder.earth/@daffodilian).
 
 ## how to install
+click this link and and copy the text in it: [this file](https://raw.githubusercontent.com/stillnotstars/tungle/main/theme.html)
 
-in the list of files above, select [theme.html](./blob/main/theme.html). on the line next to where there's a pencil symbol and a trash can symbol, there's also a button with the text "raw." click that button, which will give you a webpage with the contents of the file as plain text.
-
-open the tumblr customizer. at the top of the sidebar, under your current theme name, should be the text "edit html." click that, delete everything currently there, and copy and paste the plain text from the previous step here. click "update preview," "save," and tweak settings as needed.
+open the tumblr customizer. at the top of the sidebar, under your current theme name, should be the text "edit html." click that, delete everything currently there, and paste the plain text from the previously linked file. click "update preview," "save," and tweak settings as needed.
 
 unfortunately you have to manually repeat this step every time i update the code here.
 
