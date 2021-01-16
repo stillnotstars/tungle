@@ -37,15 +37,29 @@
 body {
     font-family: {select:font};
     background: {color:background} url("{image:background image}");
+    margin: 0;
 }
 
 .post {
-    width: 40%;
+    width: 50%;
+    max-width: 500px;
     min-width: 400px;
-    margin: 0 40% 150px;
-    position: relative;
-    z-index: 20;
+    margin: 0 auto 150px;
     padding: 10px;
+}
+
+#notes {
+    background-color: {color:post background};
+    padding: 1px 10px 10px 10px;
+    width: 50%;
+    max-width: 500px;
+    min-width: 400px;
+    margin: 0 auto 150px;
+}
+
+.postinfo {
+    display: grid;
+    grid-template-columns: 1fr 60px;
 }
 
 .box {
@@ -80,44 +94,105 @@ blockquote {
     padding-left: 15px;
 }
 
+#theme-wrapper {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(250px, 25%) 1fr;
+}
+
 header {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 30%;
-    min-width: 200px;
     font-size: 22px;
-    border: 0;
     background-color: white;
+    border: 0;
     border-right: 1px solid black;
 }
 
+main {
+    overflow: auto;
+    padding-top: 100px;
+    font-size: 20px;
+}
+
+#notbl {
+    {block:ifshowblacklist}
+        height: calc(60vh - 40px);
+    {/block:ifshowblacklist}
+    padding: 30px;
+    padding-bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+}
+
+{block:ifshowblacklist}
+#blacklist {
+    overflow-y: auto;
+    background: #fff;
+    font-size: 20px;
+    padding: 30px;
+    padding-bottom: 0;
+    height: calc(40vh - 31.6px);
+    border-top: 2px #aaa dashed;
+}
+
+#blacklist h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+#blacklistbutton {
+    font-size: 20px;
+    width: 150px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto 30px;
+    border: 5px solid #eee;
+    border-radius: 0;
+    font-family: {select:font};
+}
+{/block:ifshowblacklist}
+
+
 @media only screen and (max-width: 800px) {
-    header {
-        position: relative;
-        bottom: auto;
-        width: 80%;
-        min-width: 0px;
-        border-right: 0px;
-        border-radius: 5px;
-        border: 1px solid black;
-        margin: 30px auto;
+    #theme-wrapper {
+        height: auto;
+        display: block;
     }
-    
-    .post {
-        margin: auto;
-        margin-bottom: 150px;
+
+    #notbl {
+        height: auto;
+    }
+
+    {block:ifshowblacklist}
+    #blacklist {
+        height: auto;
+    }
+    {/block:ifshowblacklist}
+
+    header {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid black;
+    }
+
+    .post, #notes {
+        width: 80%;
+        min-width: 0;
     }
 }
 
 #profileicon {
-    width: 50%;
-    margin: 0 auto 8px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 20px;
 }
 
 #profileicon img {
     border-radius: 50%;
+    width: auto;
+    height: auto;
 }
 
 #title {
@@ -127,12 +202,7 @@ header {
     margin-bottom: 10px;
 }
 
-a.title {
-    text-decoration: none;
-}
-
 nav {
-    clear: both;
     margin-top: 10px;
     margin-left: 10px;
     font-size: 22px;
@@ -141,51 +211,6 @@ nav {
 nav a {
     text-decoration: none;
 }
-
-main {
-    margin: 100px auto 70px;
-    font-size: 20px;
-}
-
-#notbl {
-    {block:ifshowblacklist}
-        height: calc(60% - 60px);
-    {/block:ifshowblacklist}
-    padding: 50px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 10px;
-}
-
-{block:ifshowblacklist}
-#lol {
-    border-bottom: 3px solid #eee;
-    margin: 10px;
-}
-
-#blacklist {
-    overflow-y: auto;
-    background: #fff;
-    font-size: 20px;
-    padding: 50px;
-    padding-top: 10px;
-    height: calc(40% - 60px);
-}
-
-#blacklist h2 {
-    font-size: 24px;
-    margin-top: 20px;
-}
-
-#blacklistbutton h2:focus {
-    outline: none;
-    border: 5px dashed {color:links};
-    background-color: {color:post background};
-    color: {color:text};
-    text-decoration: none;
-}
-
-{/block:ifshowblacklist}
 
 label p {
     margin: 0;
@@ -197,14 +222,22 @@ label p {
 
 .pagination-icon {
     color: #888;
+    background-color: {color:post background};
+    width: 1em;
+    height: 1em;
+    flex: 0 1;
+    margin: 5px;
 }
 
-a .pagination-icon {
+.pagination-icon a {
     color: {color:links};
+    text-decoration: none;
 }
 
-.pagination a {
-    text-decoration: none;
+.pagination {
+    margin-bottom: 70px;
+    justify-content: center;
+    display: flex;
 }
 
 .tags {
@@ -273,31 +306,8 @@ a .pagination-icon {
     border-bottom: 3px solid #888;
 }
 
-#notes {
-    background-color: {color:post background};
-    padding: 1px 10px 10px 10px;
-    width: 40%;
-    min-width: 400px;
-    margin: 100px 40% 0;
-    position: relative;
-    z-index: 20;
-}
-
 #notes ol {
     list-style: none;
-}
-
-#blacklistbutton {
-    font-size: 20px;
-    width: 150px;
-    display: block;
-    margin: auto;
-    text-align: center;
-    padding: 5px;
-    margin-bottom: 20px;
-    border: 5px solid #eee;
-    border-radius: 0;
-    font-family: {select:font};
 }
 
 .avatar:not(.post) {
@@ -329,14 +339,13 @@ hr {
 </style>
 </head>
 <body>
+<div id="theme-wrapper">
 <header>
 
 <div id="notbl">
     {block:ifshowavatar}<div id="profileicon"><a href="/"><img src="{PortraitURL-96}" alt="click to go to index" /></a></div>{/block:ifshowavatar}
     
-    <div style="border-bottom: 0px; padding: 5px 10px 1px;">
-        {block:ifnotshowavatar}<a class="title" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
-    </div>
+    {block:ifnotshowavatar}<a style="text-decoration: none;" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
     
     <div style="font-size: 20px;">{Description}</div>
     
@@ -353,16 +362,13 @@ hr {
     </form>
     {/block:ifshowsearch}
     
-    <div style="font-size: 18px; margin-top: 15px;">
-        <a href="https://weirder.earth/@daffodilian">Theme Credit</a>
-        <div id="credit" style="display: none;">it's me. i made it</div>
+    <div style="font-size: 18px; margin-top: 15px; margin-bottom: 30px;">
+        <a href="https://github.com/stillnotstars/tungle">Theme Credit</a>
     </div>
 
 </div>
 
 {block:ifshowblacklist}
-<div id="lol"></div>
-
 <div id="blacklist">
     <h2>Blacklist</h2>
     <a class="sr-only focusable" style="padding: 10px;" href="#main">skip blacklist</a>
@@ -473,12 +479,18 @@ hr {
         {block:IndexPage}{block:More}<a href="{Permalink}">Read more ></a>{/block:More}{/block:IndexPage}</div>
 
         <div class="postinfo">
-            <div style="width: 80%; float: left;">
+            <div>
                 <div>{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
                 {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
             </div>
-            <div style="float: right;"><div style="float: left; margin-right: 10px;"><span class="sr-only">like button: </span>{LikeButton}</div><div style="float: left;"><span class="sr-only">reblog button: </span>{ReblogButton}</div></div>
-            <div style="clear: both;"></div>
+            <div style="display: flex;">
+                <div style="flex: 0 1; margin: 5px;">
+                    <span class="sr-only">like button: </span>{LikeButton}
+                </div>
+                <div style="flex: 0 1; margin: 5px;">
+                    <span class="sr-only">reblog button: </span>{ReblogButton}
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -491,13 +503,24 @@ hr {
     </div>
 {/block:PostNotes}
 
-{block:IndexPage}
-    <div class="pagination" style="width: 70px; margin: auto;">
-        {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">{/block:PreviousPage}{/block:Pagination}<span class="pagination-icon">←</span>&ensp;{block:Pagination}{block:PreviousPage}</a>{/block:PreviousPage}{block:NextPage}<a href="{NextPage}">{/block:NextPage}{/block:Pagination}<span class="pagination-icon">→</span>{block:Pagination}{block:NextPage}</a>{/block:NextPage}{/block:Pagination}
+{block:IndexPage} <!-- this is really nightmarish pls trust me -->
+    <div class="pagination">
+        <div class="pagination-icon">
+            {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">{/block:PreviousPage}{/block:Pagination}
+                ←
+            {block:Pagination}{block:PreviousPage}</a>{/block:PreviousPage}{/block:Pagination}
+        </div>
+
+        <div class="pagination-icon">
+            {block:Pagination}{block:NextPage}<a href="{NextPage}">{/block:NextPage}{/block:Pagination}
+                →
+            {block:Pagination}{block:NextPage}</a>{/block:NextPage}{/block:Pagination}
+        </div>
     </div>
 {/block:IndexPage}
 
 </main>
+</div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
