@@ -6,7 +6,7 @@ hi! this is a tumblr theme i made. graphic design is not my passion, but it does
 - screenreaders can scroll through posts by using headings!!
 - keyboard accessible
 - can zoom to however big you like
-- has a blacklist function---you do have to hit the blacklist button every time you move to a different page though
+- has a blocklist function to hide posts via the list of tags in the sidebar. you do have to hit the block button every time you move to a different page though, couldn’t find a good way to implement it over multiple pages..
 - image alt text shows up when you hover over the image, if it exists
 
 you can go to [laufeyj-arson dot tumblr dot com](https://laufeyj-arson.tumblr.com) for a demo.
