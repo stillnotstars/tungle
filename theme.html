@@ -27,8 +27,8 @@
 <meta name="select:Font" content="Helvetica" />
 <meta name="select:Font" content="Georgia" />
 <meta name="select:Font" content="Verdana" />
-<meta name="if:Show Blacklist" content="1" />
-<meta name="text:Blacklist Terms" content="write the tags you use for tagging stuff seperated by commas, punctuation unnecessary">
+<meta name="if:Show Blocklist" content="1" />
+<meta name="text:Blocklist Terms" content="write the tags you use for tagging stuff seperated by commas, punctuation unnecessary">
 <meta name="if:Show Alt Text" content="1" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -114,9 +114,9 @@ main {
 }
 
 #notbl {
-    {block:ifshowblacklist}
+    {block:ifshowblocklist}
         height: calc(60vh - 40px);
-    {/block:ifshowblacklist}
+    {/block:ifshowblocklist}
     padding: 30px;
     padding-bottom: 0;
     overflow-y: auto;
@@ -124,8 +124,8 @@ main {
     padding-bottom: 10px;
 }
 
-{block:ifshowblacklist}
-#blacklist {
+{block:ifshowblocklist}
+#blocklist {
     overflow-y: auto;
     background: #fff;
     font-size: 20px;
@@ -135,12 +135,12 @@ main {
     border-top: 2px #aaa dashed;
 }
 
-#blacklist h2 {
+#blocklist h2 {
     font-size: 24px;
     margin: 0;
 }
 
-#blacklistbutton {
+#blocklistbutton {
     font-size: 20px;
     width: 150px;
     display: block;
@@ -152,7 +152,7 @@ main {
     border-radius: 0;
     font-family: {select:font};
 }
-{/block:ifshowblacklist}
+{/block:ifshowblocklist}
 
 
 @media only screen and (max-width: 800px) {
@@ -165,11 +165,11 @@ main {
         height: auto;
     }
 
-    {block:ifshowblacklist}
-    #blacklist {
+    {block:ifshowblocklist}
+    #blocklist {
         height: auto;
     }
-    {/block:ifshowblacklist}
+    {/block:ifshowblocklist}
 
     header {
         width: 100%;
@@ -368,16 +368,16 @@ hr {
 
 </div>
 
-{block:ifshowblacklist}
-<div id="blacklist">
-    <h2>Blacklist</h2>
-    <a class="sr-only focusable" style="padding: 10px;" href="#main">skip blacklist</a>
+{block:ifshowblocklist}
+<div id="blocklist">
+    <h2>Blocklist</h2>
+    <a class="sr-only focusable" style="padding: 10px;" href="#main">skip blocklist</a>
     <div id="blterms">
     </div>
     <br>
-    <button id="blacklistbutton" class="box">blacklist</button>
+    <button id="blocklistbutton" class="box">block</button>
 </div>
-{/block:ifshowblacklist}
+{/block:ifshowblocklist}
 
 </header>
 
@@ -395,7 +395,7 @@ hr {
 {block:Posts}
     <div class="post box {TagsAsClasses}">
         <div class="explainbl">
-            <p>This post is blacklisted because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
+            <p>This post is blocklisted because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
             {block:HasTags}<p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
             <p class="tags">{block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
         </div>
@@ -524,7 +524,7 @@ hr {
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-{block:ifshowblacklist}
+{block:ifshowblocklist}
     function declass(tag){
         return tag.replace(/\_/g, ' ').replace(/\./g, '');
     };
@@ -539,16 +539,16 @@ hr {
         $(texttoblock + " .tags").hide();
         $(texttoblock + " .explainbl").show();
     };
-{/block:ifshowblacklist}
+{/block:ifshowblocklist}
     
     $(document).ready(function() {
-        {block:ifshowblacklist}
-        var blocktags = "{text:blacklist terms}".split(', ');
+        {block:ifshowblocklist}
+        var blocktags = "{text:blocklist terms}".split(', ');
         for (var i = 1; i <= blocktags.length; i++) {
             $("#blterms").append('<label><p><input type="checkbox" id="bl' + i + '"> <span id="labelbl' + i + '">' + blocktags[i - 1] + '</span></p></label>');
         }
 
-        $("#blacklistbutton").click(function() {
+        $("#blocklistbutton").click(function() {
             $('.postbody').show();
             $('.postinfo').show();
             $('.inserttag').html('');
@@ -573,7 +573,7 @@ hr {
             e.preventDefault();
             $(this).parent().next().toggle();
         });
-        {/block:ifshowblacklist}
+        {/block:ifshowblocklist}
         
         {block:ifshowalttext}
         $("img").each(function() {
