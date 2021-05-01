@@ -9,9 +9,9 @@ hi! this is a tumblr theme i made. graphic design is not my passion, but it does
 - has a blocklist function to hide posts via the list of tags in the sidebar. you do have to hit the block button every time you move to a different page though, couldn’t find a good way to implement it over multiple pages..
 - image alt text shows up when you hover over the image, if it exists
 
-you can go to [laufeyj-arson dot tumblr dot com](https://laufeyj-arson.tumblr.com) for a demo.
+you can go to [ghostwhalez dot tumblr dot com](https://ghostwhalez.tumblr.com) for a demo.
 
-i don't use tumblr anymore, and also i wrote most of this code years ago when i didn't actually understand how javascript works, so things might be broken. if something comes up, [open an issue in this repo](https://github.com/stillnotstars/tungle/issues/new), ping me on mastodon [@daffodilian@weirder.earth](https://weirder.earth/@daffodilian), or send an ask to my tumblr, though it might take longer for me to get back to you: [@laufeyj-arson](https://laufeyj-arson.tumblr.com).
+i don't use tumblr anymore, and also i wrote most of this code years ago when i didn't actually understand how javascript works, so things might be broken. if something comes up, [open an issue in this repo](https://github.com/stillnotstars/tungle/issues/new), ping me on mastodon [@daffodilian@weirder.earth](https://weirder.earth/@daffodilian), or send an ask to my tumblr, though it might take longer for me to get back to you: [@ghostwhalez](https://ghostwhalez.tumblr.com).
 
 shoutouts to [1linelayouts](https://1linelayouts.glitch.me/) for being a cool css resource for a bunch of fancy stuff with `display: grid/flex`.
 
