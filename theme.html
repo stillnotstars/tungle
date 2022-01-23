@@ -27,11 +27,10 @@
 <meta name="select:Font" content="Helvetica" />
 <meta name="select:Font" content="Georgia" />
 <meta name="select:Font" content="Verdana" />
-<meta name="if:Show Blocklist" content="1" />
-<meta name="text:Blocklist Terms" content="write the tags you use for tagging stuff seperated by commas, punctuation unnecessary">
+<meta name="if:Show Filter" content="1" />
+<meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
 <meta name="if:Show Alt Text" content="1" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 
 body {
@@ -72,11 +71,7 @@ body {
     font-size: 20px;
     padding: 5px;
     font-family: Verdana;
-    width: 70%;
-}
-
-#search:focus {
-    border: 2px dashed {color:links};
+    width: calc(100% - 5px);
 }
 
 a {
@@ -112,9 +107,9 @@ main {
 }
 
 #notbl {
-    {block:ifshowblocklist}
+    {block:ifshowfilter}
         height: calc(60vh - 40px);
-    {/block:ifshowblocklist}
+    {/block:ifshowfilter}
     padding: 30px;
     padding-bottom: 0;
     overflow-y: auto;
@@ -122,8 +117,8 @@ main {
     padding-bottom: 10px;
 }
 
-{block:ifshowblocklist}
-#blocklist {
+{block:ifshowfilter}
+#filter {
     overflow-y: auto;
     background: #fff;
     font-size: 20px;
@@ -133,12 +128,12 @@ main {
     border-top: 2px #aaa dashed;
 }
 
-#blocklist h2 {
+#filter h2 {
     font-size: 24px;
     margin: 0;
 }
 
-#blocklistbutton {
+#filterbutton {
     font-size: 20px;
     width: 150px;
     display: block;
@@ -150,7 +145,7 @@ main {
     border-radius: 0;
     font-family: {select:font};
 }
-{/block:ifshowblocklist}
+{/block:ifshowfilter}
 
 
 @media only screen and (max-width: 800px) {
@@ -158,11 +153,11 @@ main {
         height: auto;
     }
 
-    {block:ifshowblocklist}
-    #blocklist {
+    {block:ifshowfilter}
+    #filter {
         height: auto;
     }
-    {/block:ifshowblocklist}
+    {/block:ifshowfilter}
 
     header {
         width: 100%;
@@ -202,12 +197,20 @@ main {
 
 nav {
     margin-top: 10px;
-    margin-left: 10px;
     font-size: 22px;
 }
 
 nav a {
     text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li:before {
+    content: "☆ "
 }
 
 label p {
@@ -348,15 +351,17 @@ hr {
     <div style="font-size: 20px;">{Description}</div>
     
     <nav>
-        {block:HasPages}{block:Pages}<div><i class="fa fa-star-o"></i> <a href="{URL}">{Label}</a></div>{/block:Pages}{/block:HasPages}
-        {block:AskEnabled}<div><i class="fa fa-star-o"></i> <a href="/ask">{AskLabel}</a></div>{/block:AskEnabled}
-        {block:SubmissionsEnabled}<div><i class="fa fa-star-o"></i> <a href="/submit">{SubmitLabel}</a></div>{/block:SubmissionsEnabled}
-        {block:ifshowarchive}<div><i class="fa fa-star-o"></i> <a href="/archive">Archive</a></div>{/block:ifshowarchive}
+        <ul>
+        {block:HasPages}{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}{/block:HasPages}
+        {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
+        {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+        {block:ifshowarchive}<li><a href="/archive">Archive</a></li>{/block:ifshowarchive}
+        </ul>
     </nav>
     
     {block:ifshowsearch}
     <form action="/search" style="margin-top: 10px;" method="get">
-        <i class="fa fa-search" aria-hidden="true"></i> <input type="text" id="search" name="q" value="{SearchQuery}" placeholder="Search..."/>
+        <input type="text" id="search" name="search" value="{SearchQuery}" placeholder="Search..."/>
     </form>
     {/block:ifshowsearch}
     
@@ -366,16 +371,16 @@ hr {
 
 </div>
 
-{block:ifshowblocklist}
-<div id="blocklist">
-    <h2>Blocklist</h2>
-    <a class="sr-only focusable" style="padding: 10px;" href="#main">skip blocklist</a>
+{block:ifshowfilter}
+<div id="filter">
+    <h2>Filter</h2>
+    <a class="sr-only focusable" style="padding: 10px;" href="#main">skip filter</a>
     <div id="blterms">
     </div>
     <br>
-    <button id="blocklistbutton" class="box">block</button>
+    <button id="filterbutton" class="box">filter</button>
 </div>
-{/block:ifshowblocklist}
+{/block:ifshowfilter}
 
 </header>
 
@@ -522,7 +527,7 @@ hr {
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-{block:ifshowblocklist}
+{block:ifshowfilter}
     function declass(tag){
         return tag.replace(/\_/g, ' ').replace(/\./g, '');
     };
@@ -537,16 +542,16 @@ hr {
         $(texttoblock + " .tags").hide();
         $(texttoblock + " .explainbl").show();
     };
-{/block:ifshowblocklist}
+{/block:ifshowfilter}
     
     $(document).ready(function() {
-        {block:ifshowblocklist}
-        var blocktags = "{text:blocklist terms}".split(', ');
+        {block:ifshowfilter}
+        var blocktags = "{text:filter terms}".split(', ');
         for (var i = 1; i <= blocktags.length; i++) {
             $("#blterms").append('<label><p><input type="checkbox" id="bl' + i + '"> <span id="labelbl' + i + '">' + blocktags[i - 1] + '</span></p></label>');
         }
 
-        $("#blocklistbutton").click(function() {
+        $("#filterbutton").click(function() {
             $('.postbody').show();
             $('.postinfo').show();
             $('.inserttag').html('');
@@ -571,13 +576,14 @@ hr {
             e.preventDefault();
             $(this).parent().next().toggle();
         });
-        {/block:ifshowblocklist}
+        {/block:ifshowfilter}
         
         {block:ifshowalttext}
-        $("img").each(function() {
+        $("main img").each(function() {
             var alt = $(this).attr("alt");
-            if (alt != "") {
-                $(this).attr("title", alt);
+            if (alt != "" && alt != "image") {
+                var text = document.createTextNode("alt text: " + alt);
+                this.parentNode.insertBefore(text, this.nextSibling)
             }
         });
         {/block:ifshowalttext}
