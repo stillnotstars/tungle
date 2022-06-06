@@ -29,7 +29,6 @@
 <meta name="select:Font" content="Verdana" />
 <meta name="if:Show Filter" content="1" />
 <meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
-<meta name="if:Show Alt Text" content="1" />
 
 <style type="text/css">
 
@@ -577,17 +576,6 @@ hr {
             $(this).parent().next().toggle();
         });
         {/block:ifshowfilter}
-        
-        {block:ifshowalttext}
-        $("main img").each(function() {
-            var alt = $(this).attr("alt");
-            if (alt != "" && alt != "image") {
-                var text = document.createTextNode("alt text: " + alt);
-                this.parentNode.insertBefore(text, this.nextSibling)
-            }
-        });
-        {/block:ifshowalttext}
-
     });
 </script>
 </body>
