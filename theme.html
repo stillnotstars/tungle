@@ -581,5 +581,13 @@ forAllClass("showtags", (showtags) => {
     }
 });
 {/block:ifshowfilter}
+
+let imgs = document.getElementsByTagName("img");
+for (let i = 0; i < imgs.length; i++) {
+    var alt = imgs[i].alt;
+    if (alt != "") {
+        imgs[i].title = alt;
+    }
+}
 </script>
 </body>
