@@ -30,6 +30,7 @@
 <meta name="if:Show Filter" content="1" />
 <meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 
 body {
@@ -524,58 +525,61 @@ hr {
 </main>
 </div>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 {block:ifshowfilter}
-    function declass(tag){
-        return tag.replace(/\_/g, ' ').replace(/\./g, '');
-    };
-    
-    function reclass(tag){
-        return tag.replace(/\ /g, '_');
-    };
-    
-    function block(texttoblock) {
-        $(texttoblock + " .inserttag").append(" #" + declass(texttoblock));
-        $(texttoblock + " .postbody").hide();
-        $(texttoblock + " .tags").hide();
-        $(texttoblock + " .explainbl").show();
-    };
-{/block:ifshowfilter}
-    
-    $(document).ready(function() {
-        {block:ifshowfilter}
-        var blocktags = "{text:filter terms}".split(', ');
-        for (var i = 1; i <= blocktags.length; i++) {
-            $("#blterms").append('<label><p><input type="checkbox" id="bl' + i + '"> <span id="labelbl' + i + '">' + blocktags[i - 1] + '</span></p></label>');
-        }
+function declass(tag){
+    return tag.replace(/\_/g, ' ').replace(/\./g, '');
+}
 
-        $("#filterbutton").click(function() {
-            $('.postbody').show();
-            $('.postinfo').show();
-            $('.inserttag').html('');
-            $('.tags').show();
-            $('.explainbl').hide();
-            var x = 0;
-            for (var i = 1; i <= blocktags.length; i++) {
-                var checked = $("#bl" + i).is(':checked');
-                if (checked) {
-                    blocktags[x] = reclass($("#labelbl" + i).html());
-                    x++;
-                }
-            }
-            
-            //1 = true, 0 = false...
-            for (var i = 0; i < x; i++) {
-                block("." + blocktags[i]);
-            }
-        });
-        
-        $(".showtags").click(function(e) {
-            e.preventDefault();
-            $(this).parent().next().toggle();
-        });
-        {/block:ifshowfilter}
-    });
+function reclass(tag){
+    return tag.replace(/ /g, '_');
+}
+
+function forAllClass(classname, fn) {
+    let elements = document.getElementsByClassName(classname);
+    for (let i = 0; i < elements.length; i++) {
+        fn(elements[i]);
+    }
+}
+
+let blocktags = "{text:filter terms}".split(',').map((str) => str.trim());
+let blterms = document.getElementById("blterms");
+for (let [i, tag] of blocktags.entries()) {
+    blterms.innerHTML += '<label><p><input type="checkbox" id="bl' + i + '"> <span id="labelbl' + i + '">' + tag + '</span></p></label>';
+}
+let blockclasses = blocktags.map(reclass)
+
+document.getElementById("filterbutton").onclick = () => {
+    forAllClass('postbody', (p) => {p.style.display = ""});
+    forAllClass('postinfo', (p) => {p.style.display = ""});
+    forAllClass('inserttag', (p) => {p.innerHTML = ""});
+    forAllClass('tags', (p) => {p.style.display = ""});
+    forAllClass('explainbl', (p) => {p.style.display = "none"});
+
+    for (let i = 0; i < blocktags.length; i++) {
+        if (document.getElementById("bl" + i).checked) {
+            let texttoblock = blockclasses[i];
+            forAllClass(texttoblock, (post) => {
+                post.querySelector(".inserttag").innerHTML +=  " #" + declass(texttoblock);
+                post.querySelector(".postbody").style.display = "none";
+                post.querySelector(".tags").style.display = "none";
+                post.querySelector(".explainbl").style.display = "block";
+            })
+        }
+    }
+}
+
+forAllClass("showtags", (showtags) => {
+    showtags.onclick = (e) => {
+        e.preventDefault();
+        let tagsDisplay = showtags.parentElement.nextElementSibling;
+        if (tagsDisplay.style.display == "none") {
+            tagsDisplay.style.display = "block"
+        } else {
+            tagsDisplay.style.display = "none"
+        }
+    }
+});
+{/block:ifshowfilter}
 </script>
 </body>
