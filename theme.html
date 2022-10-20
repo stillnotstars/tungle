@@ -17,9 +17,9 @@
 <meta name="color:Text" content="#000" />
 <meta name="color:Post Background" content="#fff" />
 <meta name="color:Links" content="#4f156a" />
-<meta name="color:Bubbles" content="#e6c7f1" />
+<meta name="color:Bubbles" content="#b094c4" />
 <meta name="color:Bubble Text" content="#000">
-<meta name="color:Bubble Links" content="#3b0a51">
+<meta name="color:Bubble Links" content="#4f156a">
 <meta name="color:Scrollbar Background" content="#fff" />
 <meta name="color:Scrollbar" content="#89ccd1" />
 <meta name="if:Show Search" content="1">
@@ -30,7 +30,6 @@
 <meta name="if:Show Filter" content="1" />
 <meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 
 body {
@@ -221,24 +220,8 @@ label p {
     display: none;
 }
 
-.pagination-icon {
-    color: #888;
-    background-color: {color:post background};
-    width: 1em;
-    height: 1em;
-    flex: 0 1;
-    margin: 5px;
-}
-
-.pagination-icon a {
-    color: {color:links};
-    text-decoration: none;
-}
-
-.pagination {
-    margin-bottom: 70px;
-    justify-content: center;
-    display: flex;
+#pages {
+    margin-bottom: 40px;
 }
 
 .tags {
@@ -436,7 +419,7 @@ hr {
         {block:Link}<div class="postbody">
             <h2 class="sr-only">Link post: </h2>
             {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
-            <h2><a href="{URL}" {Target}>{Name}</a> <i class="fa fa-external-link"></i></h2>
+            <h2><a href="{URL}" {Target}>{Name}</a></h2>
             <div>
             {block:Description}<div class="postcontent">{Description}</div>{/block:Description}
         {/block:Link}
@@ -506,20 +489,12 @@ hr {
     </div>
 {/block:PostNotes}
 
-{block:IndexPage} <!-- this is really nightmarish pls trust me -->
-    <div class="pagination">
-        <div class="pagination-icon">
-            {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">{/block:PreviousPage}{/block:Pagination}
-                ←
-            {block:Pagination}{block:PreviousPage}</a>{/block:PreviousPage}{/block:Pagination}
-        </div>
-
-        <div class="pagination-icon">
-            {block:Pagination}{block:NextPage}<a href="{NextPage}">{/block:NextPage}{/block:Pagination}
-                →
-            {block:Pagination}{block:NextPage}</a>{/block:NextPage}{/block:Pagination}
-        </div>
-    </div>
+{block:IndexPage}
+<center id="pages">
+    {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">previous page</a>{/block:PreviousPage}<span style="width: 100px; display: inline-block"></span>
+    {block:NextPage}<a href="{NextPage}">next page</a>{/block:NextPage}
+    {/block:Pagination}
+</center>
 {/block:IndexPage}
 
 </main>
