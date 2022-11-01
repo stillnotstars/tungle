@@ -20,8 +20,6 @@
 <meta name="color:Bubbles" content="#b094c4" />
 <meta name="color:Bubble Text" content="#000">
 <meta name="color:Bubble Links" content="#4f156a">
-<meta name="color:Scrollbar Background" content="#fff" />
-<meta name="color:Scrollbar" content="#89ccd1" />
 <meta name="if:Show Search" content="1">
 <meta name="if:Show Archive" content="" />
 <meta name="select:Font" content="Helvetica" />
@@ -39,9 +37,7 @@ body {
 }
 
 .post {
-    width: 50%;
-    max-width: 500px;
-    min-width: 400px;
+    width: max(40%, 550px);
     margin: 0 auto 150px;
     padding: 10px;
 }
@@ -49,9 +45,7 @@ body {
 #notes {
     background-color: {color:post background};
     padding: 1px 10px 10px 10px;
-    width: 50%;
-    max-width: 500px;
-    min-width: 400px;
+    width: max(40%, 550px);
     margin: 0 auto 150px;
 }
 
@@ -61,7 +55,7 @@ body {
 }
 
 .box {
-    border: 1px solid #000;
+    border: 5px solid {color:Bubbles};
     border-radius: 5px;
     background-color: {color:post background};
 }
@@ -93,9 +87,8 @@ header {
     background-color: white;
     border: 0;
     position: fixed;
-    width: 25%;
-    min-width: 250px;
-    border-right: 1px solid black;
+    width: max(25%, 250px);
+    border-right: 5px solid {color:Bubbles};
 }
 
 main {
@@ -147,7 +140,7 @@ main {
 {/block:ifshowfilter}
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
     #notbl {
         height: auto;
     }
@@ -159,10 +152,13 @@ main {
     {/block:ifshowfilter}
 
     header {
-        width: 100%;
-        border-right: 0;
+        width: min(80%, 550px);
+        border: 5px solid {color:Bubbles};
+        border-radius: 5px;
+        background-color: {color:post background};
         position: static;
-        border-bottom: 1px solid black;
+        margin: auto;
+        margin-top: 40px;
     }
     
     main {
@@ -170,8 +166,7 @@ main {
     }
 
     .post, #notes {
-        width: 80%;
-        min-width: 0;
+        width: min(80%, 550px);
     }
 }
 
@@ -225,15 +220,7 @@ label p {
 }
 
 .tags {
-    padding: 5px;
-    margin-bottom: 10px;
-    background-color: {color:bubbles};
-    color: {color:bubble text};
-    border-radius: 5px;
-}
-
-.tags a {
-    color: {color:bubble links};
+    padding-bottom: 10px;
 }
 
 .sr-only {
@@ -252,15 +239,9 @@ label p {
     width: auto;
     height: auto;
     overflow: auto;
-    font-size: 22px;
+    background-color: {color:Post Background};
+    font-size: 1em;
     z-index: 10000000;
-}
-
-:focus {
-    outline: dashed {color:links};
-    background-color: {color:post background};
-    color: {color:text};
-    text-decoration: none;
 }
 
 .question {
@@ -305,20 +286,9 @@ img:not(.lightbox-image) {
     height: 100%;
 }
 
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background-color: {color:scrollbar background};
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: {color:scrollbar};
-    border-radius: 3px;
-}
-
 hr {
-    border: 2px solid #eee;
+    border: 1px solid {color:links};
+    width: 80%;
 }
 </style>
 </head>
@@ -383,42 +353,37 @@ hr {
         <div class="explainbl">
             <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
             {block:HasTags}<p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
-            <p class="tags">{block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
+            <p>tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
         </div>
 
         {block:Text}<div class="postbody">
             <h2 class="sr-only">Text post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-            <div class="postcontent">{block:Reblogs}<a class="tumblr_blog" href="{Permalink}">{Username}</a>{Body}
-            <hr>{/block:Reblogs}
+            <div>{block:Reblogs}<a class="tumblr_blog" href="{Permalink}">{Username}</a>{Body}<div style="height: 10px"></div>
+            {/block:Reblogs}
             {block:NotReblog}{Body}{/block:NotReblog}
         {/block:Text}
         
         {block:Photo}<div class="postbody">
             <h2 class="sr-only">Photo post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             {LinkOpenTag}<img src="{PhotoUrl-400}" alt>{LinkCloseTag}
             <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
         {/block:Photo}
         
         {block:Photoset}<div class="postbody">
             <h2 class="sr-only">Photoset: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             {Photoset}
             <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
         {/block:Photoset}
         
         {block:Quote}<div class="postbody">
             <h2 class="sr-only">Quote: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             <h2>"{Quote}"</h2>
             {block:Source}<div class="postcontent">{Source}{/block:Source}
         {/block:Quote}
         
         {block:Link}<div class="postbody">
             <h2 class="sr-only">Link post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             <h2><a href="{URL}" {Target}>{Name}</a></h2>
             <div>
             {block:Description}<div class="postcontent">{Description}</div>{/block:Description}
@@ -426,7 +391,6 @@ hr {
         
         {block:Chat}<div class="postbody">
             <h2 class="sr-only">Chat post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
             <div class="postcontent">
                 {block:Lines}
@@ -437,21 +401,18 @@ hr {
         
         {block:Video}<div class="postbody">
             <h2 class="sr-only">Video post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             {Video-400}
             {block:Caption}<div class="postcontent">{Caption}{/block:Caption}
         {/block:Video}
         
         {block:Audio}<div class="postbody">
             <h2 class="sr-only">Audio post: </h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             <div style="height: 85px; overflow: hidden;">{AudioEmbed}</div>
             {block:Caption}<div class="postcontent">{Caption}{/block:Caption}
         {/block:Audio}
         
         {block:Answer}<div class="postbody">
             <h2 class="sr-only">Ask post:</h2>
-            {block:HasTags}<div class="tags">Tagged: {block:Tags} <a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
             <div class="question"><em>{Asker} asked:</em><br>{Question}</div>
             <div class="postcontent">
             {block:Answerer}
@@ -466,6 +427,7 @@ hr {
 
         <div class="postinfo">
             <div>
+                {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
                 <div>{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
                 {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
             </div>
