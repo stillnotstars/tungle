@@ -85,6 +85,7 @@ blockquote {
 
 header {
     font-size: 22px;
+    height: 100vh;
     background-color: white;
     border: 0;
     position: fixed;
@@ -102,12 +103,11 @@ main {
 #notbl {
     {block:ifshowfilter}
         height: calc(60vh - 40px);
+        padding-bottom: 10px;
     {/block:ifshowfilter}
     padding: 30px;
-    padding-bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 10px;
 }
 
 {block:ifshowfilter}
@@ -174,7 +174,7 @@ main {
 #profileicon {
     display: grid;
     place-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #profileicon img {
@@ -185,7 +185,7 @@ main {
 
 #title {
     margin: 0;
-    font-size: 30px;
+    font-size: 1.3em;
     line-height: 120%;
     margin-bottom: 10px;
 }
@@ -438,7 +438,7 @@ hr {
         <div class="postinfo">
             <div>
                 {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
-                <div>{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
+                <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
                 {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
             </div>
             <div style="display: flex;">
