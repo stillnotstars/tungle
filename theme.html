@@ -50,11 +50,6 @@ body {
     margin: 0 auto 150px;
 }
 
-.postinfo {
-    display: grid;
-    grid-template-columns: 1fr 60px;
-}
-
 .box {
     border: 5px solid {color:Bubbles};
     border-radius: 5px;
@@ -325,7 +320,7 @@ hr {
     
     {block:ifshowsearch}
     <form action="/search" style="margin-top: 10px;" method="get">
-        <input type="text" id="search" name="search" value="{SearchQuery}" placeholder="Search..."/>
+        <input type="text" id="search" name="q" value="{SearchQuery}" placeholder="Search..."/>
     </form>
     {/block:ifshowsearch}
     
@@ -434,20 +429,23 @@ hr {
                 {Replies}
         {/block:Answer}
         
-        {block:IndexPage}{block:More}<a href="{Permalink}">Read more ></a>{/block:More}{/block:IndexPage}</div>
+        </div>
 
         <div class="postinfo">
-            <div>
-                {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
-                <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
-                {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
-            </div>
-            <div style="display: flex;">
-                <div style="flex: 0 1; margin: 5px;">
-                    <span class="sr-only">like button: </span>{LikeButton}
+            {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+
+            <div style="display: grid; grid-template-columns: 1fr 60px;">
+                <div>
+                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
+                    {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
                 </div>
-                <div style="flex: 0 1; margin: 5px;">
-                    <span class="sr-only">reblog button: </span>{ReblogButton}
+                <div style="display: flex;">
+                    <div style="flex: 0 1; margin: 5px;">
+                        <span class="sr-only">like button: </span>{LikeButton}
+                    </div>
+                    <div style="flex: 0 1; margin: 5px;">
+                        <span class="sr-only">reblog button: </span>{ReblogButton}
+                    </div>
                 </div>
             </div>
         </div>
