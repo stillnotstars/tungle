@@ -33,6 +33,7 @@
 
 body {
     font-family: {select:font};
+    color: {color:text};
     background: {color:background} url("{image:background image}");
     margin: 0;
 }
@@ -81,7 +82,7 @@ blockquote {
 header {
     font-size: 22px;
     height: 100vh;
-    background-color: white;
+    background-color: {color:post background};
     border: 0;
     position: fixed;
     width: max(25%, 250px);
@@ -108,7 +109,7 @@ main {
 {block:ifshowfilter}
 #filter {
     overflow-y: auto;
-    background: #fff;
+    background: {color:post background};
     font-size: 20px;
     padding: 30px;
     padding-bottom: 0;
@@ -436,7 +437,7 @@ hr {
 
             <div style="display: grid; grid-template-columns: 1fr 60px;">
                 <div>
-                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCount} notes / <a href="{Permalink}">Permalink</a></div>
+                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount} / <a href="{Permalink}">Permalink</a></div>
                     {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
                 </div>
                 <div style="display: flex;">
