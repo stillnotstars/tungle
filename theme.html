@@ -23,9 +23,8 @@
 <meta name="color:Bubble Links" content="#4f156a">
 <meta name="if:Show Search" content="1">
 <meta name="if:Show Archive" content="" />
-<meta name="select:Font" content="Helvetica" />
-<meta name="select:Font" content="Georgia" />
-<meta name="select:Font" content="Verdana" />
+<meta name="select:Font" content="serif" />
+<meta name="select:Font" content="sans-serif" />
 <meta name="if:Show Filter" content="1" />
 <meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
 
@@ -36,6 +35,7 @@ body {
     color: {color:text};
     background: {color:background} url("{image:background image}");
     margin: 0;
+    font-size: 16px;
 }
 
 .post {
@@ -58,9 +58,8 @@ body {
 }
 
 #search {
-    font-size: 20px;
     padding: 5px;
-    font-family: Verdana;
+    font-family: {select:font};
     width: calc(100% - 5px);
 }
 
@@ -80,7 +79,6 @@ blockquote {
 }
 
 header {
-    font-size: 22px;
     height: 100vh;
     background-color: {color:post background};
     border: 0;
@@ -93,7 +91,6 @@ main {
     overflow: auto;
     padding-left: max(250px, 25%);
     padding-top: 100px;
-    font-size: 20px;
 }
 
 #notbl {
@@ -110,7 +107,6 @@ main {
 #filter {
     overflow-y: auto;
     background: {color:post background};
-    font-size: 20px;
     padding: 30px;
     padding-bottom: 0;
     height: calc(40vh - 31.6px);
@@ -118,12 +114,11 @@ main {
 }
 
 #filter h2 {
-    font-size: 24px;
+    font-size: 1.2em;
     margin: 0;
 }
 
 #filterbutton {
-    font-size: 20px;
     width: 150px;
     display: block;
     margin: auto;
@@ -182,14 +177,13 @@ main {
 
 #title {
     margin: 0;
-    font-size: 1.3em;
+    font-size: 1.2em;
     line-height: 120%;
     margin-bottom: 10px;
 }
 
 nav {
     margin-top: 10px;
-    font-size: 22px;
 }
 
 nav a {
@@ -223,7 +217,6 @@ label p {
     border: 4px solid {color:bubbles};
     padding: 4px 8px;
     border-radius: 3px;
-    font-size: 0.9em;
 }
 
 .tags {
@@ -247,7 +240,6 @@ label p {
     height: auto;
     overflow: auto;
     background-color: {color:Post Background};
-    font-size: 1em;
     z-index: 10000000;
 }
 
@@ -274,7 +266,6 @@ label p {
 }
 
 #navdescription {
-    font-size: 21px;
     border-bottom: 3px solid #888;
 }
 
@@ -289,8 +280,7 @@ label p {
 }
 
 img:not(.lightbox-image) {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
 }
 
 hr {
@@ -308,7 +298,7 @@ hr {
     
     {block:ifnotshowavatar}<a style="text-decoration: none;" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
     
-    <div style="font-size: 20px;">{Description}</div>
+    <div>{Description}</div>
     
     <nav>
         <ul>
@@ -325,7 +315,7 @@ hr {
     </form>
     {/block:ifshowsearch}
     
-    <div style="font-size: 18px; margin-top: 15px; margin-bottom: 30px;">
+    <div style="font-size: 0.8em; margin-top: 15px; margin-bottom: 30px;">
         <a href="https://github.com/stillnotstars/tungle">Theme Credit</a>
     </div>
 
@@ -363,81 +353,83 @@ hr {
             <p>tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
         </div>
 
-        {block:Text}<div class="postbody">
-            <h2 class="sr-only">Text post: </h2>
-            {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-            <div>{block:Reblogs}<a class="tumblr_blog" href="{Permalink}">{Username}</a>{Body}<div style="height: 10px"></div>
-            {/block:Reblogs}
-            {block:NotReblog}{Body}{/block:NotReblog}
+        <div class="postbody">
+        {block:Text}
+            <h2><span class="sr-only">Text post: </span>{block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
+            <div>{block:Reblogs}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{Username}</a>{Body}</div>{/block:Reblogs}
+            {block:NotReblog}<div>{Body}</div>{/block:NotReblog}
         {/block:Text}
         
-        {block:Photo}<div class="postbody">
+        {block:Photo}
             <h2 class="sr-only">Photo post: </h2>
             {LinkOpenTag}<img src="{PhotoUrl-400}" alt>{LinkCloseTag}
-            <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
+            {block:Caption}<div>{Caption}</div>{/block:Caption}
         {/block:Photo}
         
-        {block:Photoset}<div class="postbody">
+        {block:Photoset}
             <h2 class="sr-only">Photoset: </h2>
             {Photoset}
-            <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
+            {block:Caption}<div>{Caption}</div>{/block:Caption}
         {/block:Photoset}
         
-        {block:Quote}<div class="postbody">
-            <h2 class="sr-only">Quote: </h2>
-            <h2>"{Quote}"</h2>
-            {block:Source}<div class="postcontent">{Source}{/block:Source}
+        {block:Quote}
+            <h2><span class="sr-only">Quote: </span>"{Quote}"</h2>
+            {block:Source}<div>{Source}</div>{/block:Source}
         {/block:Quote}
         
-        {block:Link}<div class="postbody">
-            <h2 class="sr-only">Link post: </h2>
-            <h2><a href="{URL}" {Target}>{Name}</a></h2>
-            <div>
-            {block:Description}<div class="postcontent">{Description}</div>{/block:Description}
+        {block:Link}
+            <h2><span class="sr-only">Link post: </span><a href="{URL}" {Target}>{Name}</a></h2>
+            {block:Description}<div>{Description}</div>{/block:Description}
         {/block:Link}
         
-        {block:Chat}<div class="postbody">
-            <h2 class="sr-only">Chat post: </h2>
-            {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-            <div class="postcontent">
+        {block:Chat}
+            <h2><span class="sr-only">Chat post: </span>
+            {block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
+            <div>
                 {block:Lines}
                     <div class="{Alt}">{block:Label}<b>{Label}</b>{/block:Label} {Line}</div>
                 {/block:Lines}
-        
+            </div>
         {/block:Chat}
         
-        {block:Video}<div class="postbody">
+        {block:Video}
             <h2 class="sr-only">Video post: </h2>
             {Video-400}
-            <div class="postcontent">{block:Caption}{Caption}{/block:Caption}
+            {block:Caption}<div>{Caption}</div>{/block:Caption}
         {/block:Video}
         
-        {block:Audio}<div class="postbody">
+        {block:Audio}
             <h2 class="sr-only">Audio post: </h2>
-            <div style="height: 85px; overflow: hidden;">{AudioEmbed}</div>
-            {block:Caption}<div class="postcontent">{Caption}{/block:Caption}
+            <div>{AudioEmbed}</div>
+            {block:Caption}<div>{Caption}</div>{/block:Caption}
         {/block:Audio}
         
-        {block:Answer}<div class="postbody">
+        {block:Answer}
             <h2 class="sr-only">Ask post:</h2>
             <div class="question"><em>{Asker} asked:</em><br>{Question}</div>
-            <div class="postcontent">
+            <div>
             {block:Answerer}
                 <div>{Answerer}: </div>
                 <div>{Answer}</div>
             {/block:Answerer}
-        
-                {Replies}
-        {/block:Answer}
-        
-        </div>
+            
+            {block:NotReblog}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{name}</a>{Body}</div>
+            <div>{Replies}</div>{/block:NotReblog}
+            
+    {block:RebloggedFrom}
+        {block:Reblogs}
+        <div><a href="{permalink}">{username}</a></div>
+        <div>{body}</div>
+        {/block:Reblogs}
+    {/block:RebloggedFrom}</div>{/block:Answer}
+</div>
 
         <div class="postinfo">
             {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
 
             <div style="display: grid; grid-template-columns: 1fr 60px;">
                 <div>
-                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount} / <a href="{Permalink}">Permalink</a></div>
+                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCountWithLabel} / <a href="{Permalink}">Permalink</a></div>
                     {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
                 </div>
                 <div style="display: flex;">
@@ -528,6 +520,11 @@ forAllClass("showtags", (showtags) => {
     }
 });
 {/block:ifshowfilter}
+let videos = document.getElementsByTagName("video");
+for (let i = 0; i < videos.length; i++) {
+    videos[i].removeAttribute("autoplay")
+}
+
 
 let imgs = document.getElementsByTagName("img");
 for (let i = 0; i < imgs.length; i++) {
