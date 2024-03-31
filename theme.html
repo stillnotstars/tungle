@@ -40,8 +40,12 @@ body {
 
 .post {
     width: max(40%, 550px);
-    margin: 0 auto 150px;
+    margin: 0 auto 100px;
     padding: 10px;
+}
+
+.post h2 {
+    margin: 0;
 }
 
 #notes {
@@ -219,6 +223,10 @@ label p {
     border-radius: 3px;
 }
 
+ol.notes {
+    padding-left: 0;
+}
+
 .tags {
     padding-bottom: 10px;
 }
@@ -290,7 +298,6 @@ hr {
 </style>
 </head>
 <body>
-<div id="theme-wrapper">
 <header>
 
 <div id="notbl">
@@ -345,7 +352,7 @@ hr {
     {/block:nosearchresults}
 {/block:SearchPage}
 
-{block:Posts}
+{block:Posts inlineMediaWidth="550"}
     <div class="post box {TagsAsClasses}">
         <div class="explainbl">
             <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
@@ -429,7 +436,7 @@ hr {
 
             <div style="display: grid; grid-template-columns: 1fr 60px;">
                 <div>
-                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCountWithLabel} / <a href="{Permalink}">Permalink</a></div>
+                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}<a href="{Permalink}">{TimeAgo}</a>{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount}</div>
                     {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
                 </div>
                 <div style="display: flex;">
@@ -449,7 +456,7 @@ hr {
 
 {block:PostNotes}
     <div id="notes" class="box">
-        {PostNotes}
+        {PostNotes-64}
     </div>
 {/block:PostNotes}
 
@@ -462,7 +469,6 @@ hr {
 {/block:IndexPage}
 
 </main>
-</div>
 
 <script type="text/javascript">
 {block:ifshowfilter}
