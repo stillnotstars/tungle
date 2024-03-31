@@ -42,8 +42,7 @@ body {
 /* layout */
 
 #themewrapper {
-    display: grid;
-    grid-template-columns: 30% 70%;
+    display: block;
 }
 
 .box {
@@ -59,42 +58,43 @@ body {
     padding: 1em;
 }
 
+.box {
+    margin-right: auto;
+    margin-left: auto;
+}
 header {
-    width: 300px;
-    position: fixed;
-    top: min(20vh, 200px);
-    right: calc(60vw + 50px);
-    height: max-content;
-    max-height: 60vh;
+    position: static;
+    width: min(80vw, 500px);
+    min-height: 300px;
+    max-height: 50vh;
+    transform: none;
+    margin: 100px 0 70px;
     overflow: scroll;
 }
-
 main {
     position: static;
-    width: 600px;
-    margin: 100px 0 30px calc(40vw + 50px);
+    margin: 100px auto 30px auto;
+    width: 100%;
 }
 
-@media (width <= 1200px) {
+@media (min-width: 1200px) {
     #themewrapper {
-        display: block;
-    }
-    .box {
-        margin-right: auto;
-        margin-left: auto;
+        display: grid;
+        grid-template-columns: 30% 70%;
     }
     header {
-        width: min(80vw, 500px);
-        position: static;
-        min-height: 300px;
-        max-height: 40vh;
-        transform: none;
-        margin: 100px 0 70px;
+        width: 300px;
+        position: fixed;
+        top: min(20vh, 200px);
+        right: calc(60vw + 50px);
+        height: max-content;
+        max-height: 60vh;
+        margin: 0;
     }
     main {
         position: static;
-        margin: 100px auto 30px auto;
-        width: 100%;
+        width: 600px;
+        margin: 100px 0 30px calc(40vw + 50px);
     }
 }
 
@@ -115,12 +115,12 @@ detail #filter {
 
 
 label p {
-    margin: 0;
-    width: calc(300px - 1em);
+    width: calc(500px - 1em);
 }
-@media (width <= 1200px) {
+@media (min-width: 1200px) {
     label p {
-        width: calc(500px - 1em);
+        margin: 0;
+        width: calc(300px - 1em);
     }
 }
 
