@@ -6,7 +6,7 @@
 
 <link rel="shortcut icon" href="{Favicon}">
 <link rel="alternate" type="application/rss+xml" href="{RSS}">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
 
 {block:Description}
     <meta name="description" content="{MetaDescription}" />
@@ -101,7 +101,8 @@ main {
 /* filter */
 
 {block:ifshowfilter}
-detail #filter {
+details#filter {
+    margin-top: 1.5em;
     padding-bottom: 0;
 }
 
@@ -111,18 +112,18 @@ detail #filter {
     display: block;
     font-family: {select:font};
 }
-{/block:ifshowfilter}
 
 
 label p {
     width: calc(500px - 1em);
+    margin: 0;
 }
 @media (min-width: 1200px) {
     label p {
-        margin: 0;
         width: calc(300px - 1em);
     }
 }
+{/block:ifshowfilter}
 
 .explainbl {
     display: none;
@@ -262,7 +263,7 @@ nav ul {
 </form>
 {/block:ifshowsearch}
 
-<div style="font-size: 0.8em; margin-top: 1em; margin-bottom: 2em;"><a href="https://github.com/stillnotstars/tungle">Theme Credit</a></div>
+<div style="font-size: 0.8em; margin-top: 1em;"><a href="https://github.com/stillnotstars/tungle">Theme Credit</a></div>
 
 {block:ifshowfilter}
 <details id="filter"><summary>Filter</summary>
@@ -292,7 +293,7 @@ nav ul {
         <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
         {block:HasTags}
         <p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
-        <p>tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>
+        <p style="display: none">tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>
         {/block:HasTags}
     </div>
 
