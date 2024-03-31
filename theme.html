@@ -12,216 +12,209 @@
     <meta name="description" content="{MetaDescription}" />
 {/block:Description}
 
-<meta name="if:Show Avatar" content="" />
-<meta name="image:Background Image" content="">
-<meta name="color:Background" content="#a084b4" />
-<meta name="color:Text" content="#000" />
-<meta name="color:Post Background" content="#fff" />
-<meta name="color:Links" content="#4f156a" />
-<meta name="color:Bubbles" content="#b094c4" />
-<meta name="color:Bubble Text" content="#000">
-<meta name="color:Bubble Links" content="#4f156a">
-<meta name="if:Show Search" content="1">
-<meta name="if:Show Archive" content="" />
-<meta name="select:Font" content="serif" />
-<meta name="select:Font" content="sans-serif" />
-<meta name="if:Show Filter" content="1" />
-<meta name="text:Filter Terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
+<meta name="if:show avatar" content="1" />
+<meta name="if:show search" content="1">
+<meta name="text:search button text" content="search!">
+<meta name="if:show archive" content="1">
+<meta name="text:archive link text" content="archive">
+<meta name="image:background image" content="">
+<meta name="color:background" content="#a084b4">
+<meta name="color:text" content="#000" />
+<meta name="color:post background" content="#eee" />
+<meta name="color:accent" content="#d0a4d4">
+<meta name="color:links" content="#4f156a" />
+<meta name="select:font" content="serif" />
+<meta name="select:font" content="sans-serif" />
+<meta name="if:show filter" content="1" />
+<meta name="text:filter terms" content="write the tags you use for tagging stuff separated by commas, punctuation unnecessary">
 
 <style type="text/css">
 
 body {
     font-family: {select:font};
     color: {color:text};
-    background: {color:background} url("{image:background image}");
+    background: {color:background} url({image:background image});
     margin: 0;
     font-size: 16px;
+    line-height: 1.3;
 }
 
-.post {
-    width: max(40%, 550px);
-    margin: 0 auto 150px;
-    padding: 10px;
-}
+/* layout */
 
-#notes {
-    background-color: {color:post background};
-    padding: 1px 10px 10px 10px;
-    width: max(40%, 550px);
-    margin: 0 auto 150px;
+#themewrapper {
+    display: grid;
+    grid-template-columns: 30% 70%;
 }
 
 .box {
-    border: 5px solid {color:Bubbles};
-    border-radius: 5px;
-    background-color: {color:post background};
+    padding: 1em;
+    background: {color:post background};
+    border: 5px double {color:accent};
+    isolation: isolate;
 }
 
-#search {
-    padding: 5px;
-    font-family: {select:font};
-    width: calc(100% - 5px);
-}
-
-a {
-    color: {color:links};
-}
-
-h1 {
-    margin-top: 0;
-}
-
-blockquote {
-    border-left: 1px solid black;
-    margin-left: 5px;
-    margin-right: 0;
-    padding-left: 15px;
+.post, #notes {
+    width: min(80vw, 500px);
+    margin: 0 auto 70px;
+    padding: 1em;
 }
 
 header {
-    height: 100vh;
-    background-color: {color:post background};
-    border: 0;
+    width: 300px;
     position: fixed;
-    width: max(25%, 250px);
-    border-right: 5px solid {color:Bubbles};
+    top: min(20vh, 200px);
+    right: calc(60vw + 50px);
+    height: max-content;
+    max-height: 60vh;
+    overflow: scroll;
 }
 
 main {
-    overflow: auto;
-    padding-left: max(250px, 25%);
-    padding-top: 100px;
+    position: static;
+    width: 600px;
+    margin: 100px 0 30px calc(40vw + 50px);
 }
 
-#notbl {
-    {block:ifshowfilter}
-        height: calc(60vh - 40px);
-        padding-bottom: 10px;
-    {/block:ifshowfilter}
-    padding: 30px;
-    overflow-y: auto;
-    overflow-x: hidden;
+@media (width <= 1200px) {
+    #themewrapper {
+        display: block;
+    }
+    .box {
+        margin-right: auto;
+        margin-left: auto;
+    }
+    header {
+        width: min(80vw, 500px);
+        position: static;
+        min-height: 300px;
+        max-height: 40vh;
+        transform: none;
+        margin: 100px 0 70px;
+    }
+    main {
+        position: static;
+        margin: 100px auto 30px auto;
+        width: 100%;
+    }
 }
+
+/* filter */
 
 {block:ifshowfilter}
-#filter {
-    overflow-y: auto;
-    background: {color:post background};
-    padding: 30px;
+detail #filter {
     padding-bottom: 0;
-    height: calc(40vh - 31.6px);
-    border-top: 2px #aaa dashed;
 }
 
-#filter h2 {
-    font-size: 1.2em;
-    margin: 0;
-}
-
-#filterbutton {
-    width: 150px;
-    display: block;
+#filter button {
+    font-size: 0.9em;
     margin: auto;
-    text-align: center;
-    padding: 5px;
-    margin: 0 auto 30px;
-    border: 5px solid #eee;
-    border-radius: 0;
+    display: block;
     font-family: {select:font};
 }
 {/block:ifshowfilter}
 
 
-@media only screen and (max-width: 900px) {
-    #notbl {
-        height: auto;
-    }
-
-    {block:ifshowfilter}
-    #filter {
-        height: auto;
-    }
-    {/block:ifshowfilter}
-
-    header {
-        height: auto;
-        width: min(80%, 550px);
-        border: 5px solid {color:Bubbles};
-        border-radius: 5px;
-        background-color: {color:post background};
-        position: static;
-        margin: auto;
-        margin-top: 40px;
-    }
-    
-    main {
-        padding-left: 0;
-    }
-
-    .post, #notes {
-        width: min(80%, 550px);
-    }
-}
-
-#profileicon {
-    display: grid;
-    place-items: center;
-    margin-bottom: 10px;
-}
-
-#profileicon img {
-    border-radius: 50%;
-    width: auto;
-    height: auto;
-}
-
-#title {
-    margin: 0;
-    font-size: 1.2em;
-    line-height: 120%;
-    margin-bottom: 10px;
-}
-
-nav {
-    margin-top: 10px;
-}
-
-nav a {
-    text-decoration: none;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav li:before {
-    content: "☆ "
-}
-
 label p {
     margin: 0;
+    width: calc(300px - 1em);
+}
+@media (width <= 1200px) {
+    label p {
+        width: calc(500px - 1em);
+    }
 }
 
 .explainbl {
     display: none;
 }
 
+
+/* cosmetic shit */
+
+h1, h2 {
+    margin: 0;
+}
+a {
+    color: {color:links};
+}
+img:not(.lightbox-image) {
+    max-width: 100%;
+}
+hr {
+    border: 1px solid {color:accent};
+    width: 80%;
+}
+blockquote {
+    border-left: 1px solid {color:accent};
+    margin-left: 5px;
+    margin-right: 0;
+    padding-left: 15px;
+}
+
+.avatar:not(.post) {
+    width: 24px;
+    height: 24px;
+    margin-right: 7px;
+}
+
+#search {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    font-family: {select:font};
+    width: 100%;
+}
+
+#search input {
+    font-size: 0.9em;
+    font-family: {select:font};
+    margin: 0.2em;
+}
+
+header #icon {
+    display: block;
+    margin: auto;
+    width: max-content;
+}
+header #icon > img {
+    border-radius: 50%;
+}
+
+#title {
+    font-size: 1.2em;
+    line-height: 120%;
+    margin-bottom: 10px;
+}
+
+nav a {
+    text-decoration: none;
+}
+nav ul {
+    padding: 0 1em;
+}
+
+.question {
+    padding: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid {color:accent};
+}
+
 #pages {
-    margin-bottom: 40px;
+    margin-bottom: 70px;
 }
-
 #pages a {
-    display:inline-block;
-    background-color: {color:post background};
-    border: 4px solid {color:bubbles};
-    padding: 4px 8px;
-    border-radius: 3px;
+    display: inline-block;
+    padding: 0.5em;
+    border: 2px solid {color:accent};
 }
 
-.tags {
-    padding-bottom: 10px;
+#notes ol {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
 }
+
+/* kb only/sr stuff */
 
 .sr-only {
     position: absolute;
@@ -243,93 +236,41 @@ label p {
     z-index: 10000000;
 }
 
-.question {
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: {color:bubbles};
-    color: {color:bubble text};
-}
-
-.questions a {
-    color: {color:bubble links};
-}
-
-.odd {
-    background-color: {color:bubbles};
-    color: {color:bubble text};
-    border-radius: 5px;
-}
-
-.odd a {
-    color: {color:bubble links};
-}
-
-#navdescription {
-    border-bottom: 3px solid #888;
-}
-
-#notes ol {
-    list-style: none;
-}
-
-.avatar:not(.post) {
-    width: 24px;
-    height: 24px;
-    margin-right: 7px;
-}
-
-img:not(.lightbox-image) {
-    max-width: 100%;
-}
-
-hr {
-    border: 1px solid {color:links};
-    width: 80%;
-}
 </style>
 </head>
 <body>
-<div id="theme-wrapper">
-<header>
+<div id="themewrapper">
+<header class="box">
+{block:ifshowavatar}<a id="icon" href="/"><img src="{PortraitURL-96}" alt="click to go to index" /></a>{/block:ifshowavatar}
+{block:ifnotshowavatar}<a style="text-decoration: none;" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
+    
+<div>{Description}</div>
 
-<div id="notbl">
-    {block:ifshowavatar}<div id="profileicon"><a href="/"><img src="{PortraitURL-96}" alt="click to go to index" /></a></div>{/block:ifshowavatar}
-    
-    {block:ifnotshowavatar}<a style="text-decoration: none;" href="/">{/block:ifnotshowavatar}<h1 id="title">{Title}</h1>{block:ifnotshowavatar}</a>{/block:ifnotshowavatar}
-    
-    <div>{Description}</div>
-    
-    <nav>
-        <ul>
-        {block:HasPages}{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}{/block:HasPages}
-        {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
-        {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
-        {block:ifshowarchive}<li><a href="/archive">Archive</a></li>{/block:ifshowarchive}
-        </ul>
-    </nav>
-    
-    {block:ifshowsearch}
-    <form action="/search" style="margin-top: 10px;" method="get">
-        <input type="text" id="search" name="q" value="{SearchQuery}" placeholder="Search..."/>
-    </form>
-    {/block:ifshowsearch}
-    
-    <div style="font-size: 0.8em; margin-top: 15px; margin-bottom: 30px;">
-        <a href="https://github.com/stillnotstars/tungle">Theme Credit</a>
-    </div>
+<nav>
+    <ul>
+    {block:HasPages}{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}{/block:HasPages}
+    {block:AskEnabled}<li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
+    {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+    {block:ifshowarchive}<li><a href="/archive">{text:archive link text}</a></li>{/block:ifshowarchive}
+    </ul>
+</nav>
 
-</div>
+{block:ifshowsearch}
+<form id="search" action="/search" method="get">
+    <input type="text" name="q" value="{SearchQuery}"/>
+    <input type="submit" value="{text:search button text}" />
+</form>
+{/block:ifshowsearch}
+
+<div style="font-size: 0.8em; margin-top: 1em; margin-bottom: 2em;"><a href="https://github.com/stillnotstars/tungle">Theme Credit</a></div>
 
 {block:ifshowfilter}
-<div id="filter">
-    <h2>Filter</h2>
+<details id="filter"><summary>Filter</summary>
     <a class="sr-only focusable" style="padding: 10px;" href="#main">skip filter</a>
     <div id="blterms">
     </div>
-    <br>
-    <button id="filterbutton" class="box">filter</button>
-</div>
+    <button id="filterbutton">filter</button>
+</details>
 {/block:ifshowfilter}
 
 </header>
@@ -345,7 +286,7 @@ hr {
     {/block:nosearchresults}
 {/block:SearchPage}
 
-{block:Posts}
+{block:Posts inlineMediaWidth="550"}
     <div class="post box {TagsAsClasses}">
         <div class="explainbl">
             <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
@@ -429,7 +370,7 @@ hr {
 
             <div style="display: grid; grid-template-columns: 1fr 60px;">
                 <div>
-                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}{TimeAgo}{/block:Date} / {NoteCountWithLabel} / <a href="{Permalink}">Permalink</a></div>
+                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}<a href="{Permalink}">{TimeAgo}</a>{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount}</div>
                     {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
                 </div>
                 <div style="display: flex;">
@@ -449,14 +390,14 @@ hr {
 
 {block:PostNotes}
     <div id="notes" class="box">
-        {PostNotes}
+        {PostNotes-64}
     </div>
 {/block:PostNotes}
 
 {block:IndexPage}
 <center id="pages">
     {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">previous page</a>{/block:PreviousPage}<span style="width: 100px; display: inline-block"></span>
-    {block:NextPage}<a href="{NextPage}">next page</a>{/block:NextPage}
+    {block:NextPage}<a href="{NextPage}" class="box">next page</a>{/block:NextPage}
     {/block:Pagination}
 </center>
 {/block:IndexPage}
