@@ -286,106 +286,100 @@ nav ul {
     {/block:nosearchresults}
 {/block:SearchPage}
 
-{block:Posts inlineMediaWidth="550"}
-    <div class="post box {TagsAsClasses}">
-        <div class="explainbl">
-            <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
-            {block:HasTags}<p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
-            <p>tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>{/block:HasTags}
-        </div>
+{block:Posts inlineMediaWidth="500"}
+<div class="post box {TagsAsClasses}">
+    <div class="explainbl">
+        <p>This post has been hidden because it was tagged: <span class="inserttag"></span>. <a href="{Permalink}">Click here to view it</a>.</p>
+        {block:HasTags}
+        <p>Click here to <a class="showtags" href="#">see the tags</a>.</p>
+        <p>tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</p>
+        {/block:HasTags}
+    </div>
 
-        <div class="postbody">
-        {block:Text}
-            <h2><span class="sr-only">Text post: </span>{block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
-            <div>{block:Reblogs}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{Username}</a>{Body}</div>{/block:Reblogs}
-            {block:NotReblog}<div>{Body}</div>{/block:NotReblog}
-        {/block:Text}
+    <div class="postbody">
+    {block:Text}
+        <h2><span class="sr-only">Text post: </span>{block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
+        {block:Reblogs}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{Username}</a>{Body}</div>{/block:Reblogs}
+        {block:NotReblog}<div>{Body}</div>{/block:NotReblog}
+    {/block:Text}
         
-        {block:Photo}
-            <h2 class="sr-only">Photo post: </h2>
-            {LinkOpenTag}<img src="{PhotoUrl-400}" alt>{LinkCloseTag}
-            {block:Caption}<div>{Caption}</div>{/block:Caption}
-        {/block:Photo}
+    {block:Photo}
+        <h2 class="sr-only">Photo post: </h2>
+        {LinkOpenTag}<img src="{PhotoUrl-400}" alt="{PhotoAlt}">{LinkCloseTag}
+        {block:Caption}<div>{Caption}</div>{/block:Caption}
+    {/block:Photo}
         
-        {block:Photoset}
-            <h2 class="sr-only">Photoset: </h2>
-            {Photoset}
-            {block:Caption}<div>{Caption}</div>{/block:Caption}
-        {/block:Photoset}
+    {block:Photoset}
+        <h2 class="sr-only">Photoset: </h2>
+        {Photoset}
+        {block:Caption}<div>{Caption}</div>{/block:Caption}
+    {/block:Photoset}
         
-        {block:Quote}
-            <h2><span class="sr-only">Quote: </span>"{Quote}"</h2>
-            {block:Source}<div>{Source}</div>{/block:Source}
-        {/block:Quote}
+    {block:Quote}
+        <h2><span class="sr-only">Quote: </span>"{Quote}"</h2>
+        {block:Source}<div>{Source}</div>{/block:Source}
+    {/block:Quote}
         
-        {block:Link}
-            <h2><span class="sr-only">Link post: </span><a href="{URL}" {Target}>{Name}</a></h2>
-            {block:Description}<div>{Description}</div>{/block:Description}
-        {/block:Link}
+    {block:Link}
+        <h2><span class="sr-only">Link post: </span><a href="{URL}" {Target}>{Name}</a></h2>
+        {block:Description}<div>{Description}</div>{/block:Description}
+    {/block:Link}
         
-        {block:Chat}
-            <h2><span class="sr-only">Chat post: </span>
-            {block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
+    {block:Chat}
+        <h2><span class="sr-only">Chat post: </span>
+        {block:Title}<a href="{Permalink}">{Title}</a>{/block:Title}</h2>
+        {block:Lines}<div class="{Alt}">{block:Label}<b>{Label}</b>{/block:Label} {Line}</div>{/block:Lines}
+    {/block:Chat}
+        
+    {block:Video}
+        <h2 class="sr-only">Video post: </h2>
+        {Video-400}
+        {block:Caption}<div>{Caption}</div>{/block:Caption}
+    {/block:Video}
+        
+    {block:Audio}
+        <h2 class="sr-only">Audio post: </h2>
+        <div>{AudioEmbed}</div>
+        {block:Caption}<div>{Caption}</div>{/block:Caption}
+    {/block:Audio}
+        
+    {block:Answer}
+        <h2 class="sr-only">Ask post:</h2>
+        <div class="question"><em>{Asker} asked:</em><br>{Question}</div>
+        <div>
+        {block:Answerer}
+            <div>{Answerer}: </div>
+            <div>{Answer}</div>
+        {/block:Answerer}
+            
+        {block:NotReblog}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{name}</a>{Body}</div>
+        <div>{Replies}</div>{/block:NotReblog}
+
+        {block:RebloggedFrom}
+            {block:Reblogs}
+                <div><a href="{permalink}">{username}</a></div>
+                <div>{body}</div>
+            {/block:Reblogs}
+        {/block:RebloggedFrom}
+        </div>
+    {/block:Answer}
+    </div> <!-- for postbody -->
+
+    <div class="postinfo">
+        {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
+
+        <div style="display: grid; grid-template-columns: 1fr 60px;">
             <div>
-                {block:Lines}
-                    <div class="{Alt}">{block:Label}<b>{Label}</b>{/block:Label} {Line}</div>
-                {/block:Lines}
+                <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}<a href="{Permalink}">{TimeAgo}</a>{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount}</div>
+                {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
             </div>
-        {/block:Chat}
-        
-        {block:Video}
-            <h2 class="sr-only">Video post: </h2>
-            {Video-400}
-            {block:Caption}<div>{Caption}</div>{/block:Caption}
-        {/block:Video}
-        
-        {block:Audio}
-            <h2 class="sr-only">Audio post: </h2>
-            <div>{AudioEmbed}</div>
-            {block:Caption}<div>{Caption}</div>{/block:Caption}
-        {/block:Audio}
-        
-        {block:Answer}
-            <h2 class="sr-only">Ask post:</h2>
-            <div class="question"><em>{Asker} asked:</em><br>{Question}</div>
-            <div>
-            {block:Answerer}
-                <div>{Answerer}: </div>
-                <div>{Answer}</div>
-            {/block:Answerer}
-            
-            {block:NotReblog}<div style="margin-bottom: 25px;"><a href="{Permalink}" class="username">{name}</a>{Body}</div>
-            <div>{Replies}</div>{/block:NotReblog}
-            
-    {block:RebloggedFrom}
-        {block:Reblogs}
-        <div><a href="{permalink}">{username}</a></div>
-        <div>{body}</div>
-        {/block:Reblogs}
-    {/block:RebloggedFrom}</div>{/block:Answer}
+            <div style="display: flex;">
+                <div style="flex: 0 1; margin: 5px;"><span class="sr-only">like button: </span>{LikeButton}</div>
+                <div style="flex: 0 1; margin: 5px;"><span class="sr-only">reblog button: </span>{ReblogButton}</div>
+            </div>
+        </div>
+    </div>
 </div>
-
-        <div class="postinfo">
-            {block:HasTags}<div class="tags">Tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}
-
-            <div style="display: grid; grid-template-columns: 1fr 60px;">
-                <div>
-                    <div>{block:PinnedPostLabel}<i>{PinnedPostLabel}.</i> {/block:PinnedPostLabel}{block:Date}<a href="{Permalink}">{TimeAgo}</a>{/block:Date} {block:NoteCount}/ {NoteCountWithLabel}{/block:NoteCount}</div>
-                    {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
-                </div>
-                <div style="display: flex;">
-                    <div style="flex: 0 1; margin: 5px;">
-                        <span class="sr-only">like button: </span>{LikeButton}
-                    </div>
-                    <div style="flex: 0 1; margin: 5px;">
-                        <span class="sr-only">reblog button: </span>{ReblogButton}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
 {/block:Posts}
 
 {block:PostNotes}
