@@ -375,7 +375,7 @@ nav ul {
                 {block:RebloggedFrom}<div>reblogged from: <a href="{ReblogParentURL}">{ReblogParentName}</a> / source: <a href="{ReblogRootURL}">{ReblogRootName}</a></div>{/block:RebloggedFrom}
             </div>
             <div style="display: flex;">
-                <div style="flex: 0 1; margin: 5px;"><span class="sr-only">like button: </span>{LikeButton}</div>
+                <div style="flex: 0 1; margin: 5px;"><span class="sr-only control like-control">like button: </span>{LikeButton}</div>
                 <div style="flex: 0 1; margin: 5px;"><span class="sr-only">reblog button: </span>{ReblogButton}</div>
             </div>
         </div>
@@ -391,7 +391,7 @@ nav ul {
 
 {block:IndexPage}
 <center id="pages">
-    {block:Pagination}{block:PreviousPage}<a href="{PreviousPage}">previous page</a>{/block:PreviousPage}<span style="width: 100px; display: inline-block"></span>
+    {block:Pagination}{block:PreviousPage}<a class="box" href="{PreviousPage}">previous page</a>{/block:PreviousPage}<span style="width: 100px; display: inline-block"></span>
     {block:NextPage}<a href="{NextPage}" class="box">next page</a>{/block:NextPage}
     {/block:Pagination}
 </center>
