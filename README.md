@@ -1,9 +1,11 @@
 # an accessible tumblr theme
 
+**NOTE:** there's a [different version of this theme](https://github.com/stillnotstars/tungle/tree/rewrite) over here! please let me know about bugs on either one!
+
 hi! this is a tumblr theme i made. graphic design is not my passion, but it does have the following features:
 
 - screenreader accessible
-- screenreaders can scroll through posts by using headings!!
+- screenreaders can scroll through posts by using headings!! this is a bit janky now because of the new post format stuff ngl but it's there.
 - keyboard accessible
 - can zoom to however big you like
 - has a blocklist function to hide posts via the list of tags in the sidebar. you do have to hit the block button every time you move to a different page though, couldn’t find a good way to implement it over multiple pages..
